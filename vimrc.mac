@@ -1,0 +1,228 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Line Numbering
+set nu
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Formatting Options
+
+set shiftwidth=4 "set default  
+set softtabstop=4
+set autoindent
+set smartindent
+set smarttab
+set expandtab
+set ruler " iTerm needed for showing column,line number
+set backspace=2 " Needed for backspace to work properly on OSX/iTerm2
+syntax on
+filetype plugin indent on
+
+" Custom formatting
+" Bash/SH
+autocmd FileType sh set softtabstop=2 | set shiftwidth=2 | set expandtab
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Search Options
+"
+set magic " search using extended regex
+" set incsearch " instant search
+set ignorecase " Make search case insensitive
+set smartcase " if the search pattern contains upper case letters, then make the search
+set hlsearch " Highlight search matches
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Restore cursor to last postion in file """""""""""""""""""""""""""""""""""""""
+if has("autocmd")
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tell vim to remember certain things when we exit
+"
+" "  '10  :  marks will be remembered for up to 10 previously edited files
+" "  "100 :  will save up to 100 lines for each register
+" "  :20  :  up to 20 lines of command-line history will be remembered
+" "  %    :  saves and restores the buffer list
+" "  n... :  where to save the viminfo files
+set viminfo='10,\"100,:20,%,n~/.vim/viminfo
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mouse Options
+" set mouse=a "Enable mouse use in term
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Auto completion
+"
+"
+" Omni Completion
+set omnifunc=syntaxcomplete#Complete
+" Autocomplete with wildchar in command mode
+set wildmenu
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set Filetypes
+" MarkDown
+au BufRead,BufNewFile *.mkdhtml set filetype=markdown
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" Templates
+""""
+"""" CPP
+"""autocmd BufNewFile ~/Desktop/Programming/*.cpp 0r ~/.vim/templates/coding_template.cpp | 9 | exec "normal i \t"
+"""
+"""" ERLANG " Add autofilename insertion in module
+"""autocmd BufNewFile *.erl 0r ~/.vim/templates/template.erl | 4 | :%s/{{filename}}/\=expand('%:t:r')
+"""
+"""" MARKDOWN
+"""autocmd BufNewFile *.mkdhtml 0r ~/.vim/templates/template.mkdhtml | exec "normal o" | 3
+""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PATHOGEN AND RELATED PLUGIN SETTINGS
+"
+" Adding Plugin Pathogen
+execute pathogen#infect()
+execute pathogen#helptags()
+
+
+
+""" Powerline settings
+
+""" Unicode glyphs
+set encoding=utf-8 " Necessary to show Unicode glyphs
+
+""" Disable vi-compatibilty
+set nocompatible
+
+" Steps stolen from
+" http://blog.codefront.net/2013/10/27/installing-powerline-on-os-x-homebrew/
+" for OSX
+source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+
+set laststatus=2   " Always show the statusline
+
+"let g:Powerline_symbols = 'unicode' " Define dividers and shii, look at help: Powerline_symbols
+"
+let g:Powerline_theme = 'default' " Powerline theme
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLORSCHEME SETTINGS
+"
+" Set ColorSchemes
+" NOTE: Setting this after all the plugins and shii have loaded, because Monokai
+" exists in one of added colorscheme plugins
+
+" Disabling colorschemes temporarily because they're annoying me.
+" Switching to Solarized for a bit
+" Default
+set background=dark
+" colorscheme solarized
+
+" This is a lot faster than checking filetype for some reason
+"" autocmd BufNewFile,BufRead *.py colorscheme Monokai 
+
+"" " Python
+"" " See -- http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
+"" autocmd FileType python colorscheme default
+
+"" " Markdown
+"" autocmd BufNewFile,BufRead *.mkd colorscheme 256-jungle
+"" " Plain Text
+"" autocmd BufNewFile,BufRead *.txt colorscheme  256-jungle
+"" " LaTeX
+"" autocmd BufNewFile,BufRead *.tex colorscheme blacklight
+"" " C++
+"" autocmd BufNewFile,BufRead *.cpp colorscheme zephyr
+"" " C
+"" autocmd BufNewFile,BufRead *.c colorscheme zephyr
+"" " Headers
+"" autocmd BufNewFile,BufRead *.h colorscheme zephyr
+""
+"" autocmd BufNewFile,BufRead * highlight WS ctermbg=yellow guibg=yellow | match WS /\s\+$/
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Temp whitespace highlighting
+highlight WS ctermbg=DarkGreen guibg=DarkGreen
+match WS '\s\+$'
+highlight log ctermfg=215 guifg=SandyBrown
+match log 'logging.\(debug\|info\|warning\|error\)'
+highlight pyerr ctermfg=205 guifg=HotPink
+match pyerr '\w\+Error'
+
+" Automatic Highlighting of trailing Whitespaces """""""""""""""""""""""""""""""
+"autocmd ColorScheme * highlight WS ctermbg=yellow guibg=yellow
+" highlight WS ctermbg=yellow guibg=yellow
+" highlight LOG ctermfg=green guifg=green
+" " autocmd BufWinEnter * match WS '\s\+$'
+" " autocmd BufRead *.py match LOG 'logging'
+" " match WS '\s\+$'
+" " match LOG 'logging'
+" "match ExtraWhitespace /\s\+$/
+" autocmd BufWinEnter * match WS /\s\+$/
+" autocmd InsertEnter * match WS /\s\+\%#\@<!$/
+" autocmd InsertLeave * match WS /\s\+$/
+" autocmd BufWinLeave * call clearmatches()
+"
+" autocmd BufWinEnter * match LOG 'logging'
+" autocmd InsertEnter * match LOG 'logging'
+" autocmd InsertLeave * match LOG 'logging'
+" autocmd BufWinLeave * call clearmatches()
+"
+" autocmd BufWinEnter * match inf '.info'
+" autocmd InsertEnter * match inf '.info'
+" autocmd InsertLeave * match inf '.info'
+" autocmd BufWinLeave * call clearmatches()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM FUNCTIONS
+"
+" Add better word processing
+function WordProcessing()
+    " Turn on UK English spell checker
+    set spell spelllang=en_gb
+    " Do not exceed 100 chars in a line
+    set textwidth=100
+endfunction
+"
+" ack
+function CodeProcessing()
+    set spell spelllang=en_us
+    set textwidth=80
+
+endfunction
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Pretty Lambdas """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"au VimEnter * syntax keyword Statement lambda conceal cchar=λ
+au VimEnter * syntax keyword racketSyntax lambda conceal cchar=λ
+au VimEnter * hi! link Conceal racketSyntax
+au VimEnter * set conceallevel=2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" Racket Config """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" vim-slime
+let g:slime_target = "tmux"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

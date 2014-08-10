@@ -1,0 +1,6 @@
+set show-all-if-ambiguous off
+set show-all-if-unmodified on
+set completion-ignore-case on
+# Pg-Up Pg-Dn?
+#"\e[5~": history-search-backward
+#"\e[6~": history-search-forward

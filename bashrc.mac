@@ -1,0 +1,31 @@
+# brew stuff
+export PATH="$(/usr/local/bin/brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+export PATH=$PATH':/usr/local/sbin'
+
+# Global Variables
+export EDITOR=vim
+
+# for solarized only
+# export PS1="\[\033[0;35m\][\u@\h \W]\[\033[0m\]$ ";
+export PS1="\[\033[0;33m\][\u@\h \W]\[\033[0m\]$ ";
+
+export CLICOLOR=1
+
+alias ls='gls --color'
+alias la='gls -a'
+alias ll='gls -al'
+
+export PATH=$PATH':/Users/mozilla/Manually-Installed/mozpaste/' # pastebin.m.o
+export PATH=$PATH':/Applications/Racket v6.0.1/bin' # Racket
+
+export HTTP_PROXY='http://proxy.iiit.ac.in:8080'
+export HTTPS_PROXY='http://proxy.iiit.ac.in:8080'
+export FTP_PROXY='http://proxy.iiit.ac.in:8080'
+export http_proxy='http://proxy.iiit.ac.in:8080'
+export https_proxy='http://proxy.iiit.ac.in:8080'
+export ftp_proxy='http://proxy.iiit.ac.in:8080'
+export no_proxy='localhost,127.0.0.1/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16'
+export NO_PROXY='localhost,127.0.0.1/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16'
