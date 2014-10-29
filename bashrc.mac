@@ -5,8 +5,11 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 export PATH=$PATH':/usr/local/sbin'
 
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 # Global Variables
 export EDITOR=vim
+export TERM='xterm-256color'
 
 # for solarized only
 # export PS1="\[\033[0;35m\][\u@\h \W]\[\033[0m\]$ ";
@@ -18,14 +21,27 @@ alias ls='gls --color'
 alias la='gls -a'
 alias ll='gls -al'
 
-export PATH=$PATH':/Users/mozilla/Manually-Installed/mozpaste/' # pastebin.m.o
+export PATH=$PATH':/Users/mozilla/Manually-Installed/mozpaste' # pastebin.m.o
 export PATH=$PATH':/Applications/Racket v6.0.1/bin' # Racket
 
-export HTTP_PROXY='http://proxy.iiit.ac.in:8080'
-export HTTPS_PROXY='http://proxy.iiit.ac.in:8080'
-export FTP_PROXY='http://proxy.iiit.ac.in:8080'
-export http_proxy='http://proxy.iiit.ac.in:8080'
-export https_proxy='http://proxy.iiit.ac.in:8080'
-export ftp_proxy='http://proxy.iiit.ac.in:8080'
-export no_proxy='localhost,127.0.0.1/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16'
-export NO_PROXY='localhost,127.0.0.1/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16'
+# Proxy
+#export HTTP_PROXY='http://proxy.iiit.ac.in:8080'
+#export HTTPS_PROXY='http://proxy.iiit.ac.in:8080'
+#export FTP_PROXY='http://proxy.iiit.ac.in:8080'
+#export http_proxy='http://proxy.iiit.ac.in:8080'
+#export https_proxy='http://proxy.iiit.ac.in:8080'
+#export ftp_proxy='http://proxy.iiit.ac.in:8080'
+#export no_proxy='localhost,127.0.0.1/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16'
+#export NO_PROXY='localhost,127.0.0.1/8,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16'
+
+# No Proxy
+#export HTTP_PROXY=''
+#export HTTPS_PROXY=''
+#export FTP_PROXY=''
+#export http_proxy=''
+#export https_proxy=''
+#export ftp_proxy=''
+#export no_proxy=''
+#export NO_PROXY=''
+
+#alias apaste='curl -F '''paste=<-'\'' http://apaste.info/store'

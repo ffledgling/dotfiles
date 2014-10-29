@@ -17,6 +17,7 @@ set backspace=2 " Needed for backspace to work properly on OSX/iTerm2
 syntax on
 filetype plugin indent on
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom formatting
 " Bash/SH
 autocmd FileType sh set softtabstop=2 | set shiftwidth=2 | set expandtab
@@ -136,7 +137,11 @@ let g:Powerline_theme = 'default' " Powerline theme
 " Switching to Solarized for a bit
 " Default
 set background=dark
-" colorscheme solarized
+colorscheme apprentice
+
+" Disable background highlighting by colorschemes in transparent/custom
+" background term-emulator
+highlight Normal ctermbg=NONE 
 
 " This is a lot faster than checking filetype for some reason
 "" autocmd BufNewFile,BufRead *.py colorscheme Monokai 
@@ -194,8 +199,7 @@ match pyerr '\w\+Error'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CUSTOM FUNCTIONS
+" CUSTOM FUNCTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Add better word processing
 function WordProcessing()
@@ -211,7 +215,19 @@ function CodeProcessing()
     set textwidth=80
 
 endfunction
+
+function FixBG()
+    highlight Normal ctermbg=NONE 
+endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" Custom Mappings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Toggle pastemode
+nnoremap <F3> :set paste!<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " Pretty Lambdas """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "au VimEnter * syntax keyword Statement lambda conceal cchar=λ
@@ -225,4 +241,9 @@ au VimEnter * set conceallevel=2
 "
 " vim-slime
 let g:slime_target = "tmux"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Niji (Rainbow Parenthesis) Config """"""""""""""""""""""""""""""""""""""""""""
+"
+let g:niji_matching_filetypes = ['lisp', 'racket', 'clojure']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

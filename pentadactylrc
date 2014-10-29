@@ -9,4 +9,7 @@ map -count -modes=n,v k -builtin <count>2k
 map -count -modes=n,v l -builtin <count>2l
 set guioptions=brsCn
 
+set hintkeys=asdflkj
+hi -a Hint font-size: 9pt !important;
+
 " vim: set ft=pentadactyl:
