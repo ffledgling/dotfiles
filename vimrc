@@ -12,7 +12,7 @@ map gd :bd<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatting Options
 
-set shiftwidth=4 "set default  
+set shiftwidth=4 "set default
 set softtabstop=4
 set autoindent
 set smartindent
@@ -101,6 +101,13 @@ au BufRead,BufNewFile *.xml :call Custom_xml()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure ctags
+
+set tags=tags;
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable inbuilt plugins
 
 runtime macros/matchit.vim
@@ -141,16 +148,21 @@ set laststatus=2   " Always show the statusline
 " NOTE: Setting this after all the plugins and shii have loaded, because Monokai
 " exists in one of added colorscheme plugins
 
-" Disabling colorschemes temporarily because they're annoying me.
-" Switching to Solarized for a bit
 " Default
-" set background=dark
-" colorscheme default
-colorscheme gotham256
+colorscheme default
+set bg=dark
+
+" This fixes some $TERM weirdness when using solarized. The fix is
+" to actually find the right $TERM, but I don't know what it is and it's a
+" pretty esoteric rabbithole
+" set t_Co=16
+" colorscheme solarized
+
+" colorscheme gotham256
 
 " Disable background highlighting by colorschemes in transparent/custom
 " background term-emulator
-highlight Normal ctermbg=NONE
+" highlight Normal ctermbg=NONE
 
 " This is a lot faster than checking filetype for some reason
 "" autocmd BufNewFile,BufRead *.py colorscheme Monokai
@@ -226,26 +238,26 @@ nnoremap <F3> :set paste!<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " airline configuration """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+""" let g:airline#extensions#tabline#enabled = 1
+""" let g:airline#extensions#tabline#left_sep = ' '
+""" let g:airline#extensions#tabline#left_alt_sep = '|'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " syntastic configuration """"""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_py_checkers = ['pyflakes']
-let g:syntastic_check_on_open = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_enable_highlighting = 0
-let g:syntastic_mode_map = { 'passive_filetypes': ['go'] }
+""" set statusline+=%#warningmsg#
+""" set statusline+=%{SyntasticStatuslineFlag()}
+""" set statusline+=%*
+""" 
+""" let g:syntastic_always_populate_loc_list = 1
+""" let g:syntastic_auto_loc_list = 1
+""" let g:syntastic_check_on_open = 1
+""" let g:syntastic_check_on_wq = 0
+""" let g:syntastic_python_checkers = ['pyflakes']
+""" let g:syntastic_py_checkers = ['pyflakes']
+""" let g:syntastic_check_on_open = 0
+""" let g:syntastic_loc_list_height = 5
+""" let g:syntastic_enable_highlighting = 0
+""" let g:syntastic_mode_map = { 'passive_filetypes': ['go'] }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -268,5 +280,33 @@ let g:slime_target = "tmux"
 
 " Niji (Rainbow Parenthesis) Config """"""""""""""""""""""""""""""""""""""""""""
 "
-let g:niji_matching_filetypes = ['lisp', 'racket', 'clojure']
+let g:niji_matching_filetypes = ['lisp', 'racket', 'clojure', 'python']
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Language Server Configuration
+set hidden
+
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': ['clangd', '-index-file=/spare/local/jaisingh/sim/bin/compdb_gen/clangd.dex',],
+  \ }
+
+function SetLSPShortcuts()
+  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()
+
+augroup LSP
+  autocmd!
+  autocmd FileType cpp,c call SetLSPShortcuts()
+  autocmd FileType cpp,c set signcolumn=yes
+augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
