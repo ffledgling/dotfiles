@@ -96,15 +96,8 @@ au BufRead,BufNewFile *.mkdhtml set filetype=markdown
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PATHOGEN AND RELATED PLUGIN SETTINGS
-"
-" Adding Plugin Pathogen
-execute pathogen#infect()
-execute pathogen#helptags()
+" AIRLINE SETTINGS
 
-
-
-""" Powerline settings
 
 """ Unicode glyphs
 set encoding=utf-8 " Necessary to show Unicode glyphs
@@ -112,16 +105,12 @@ set encoding=utf-8 " Necessary to show Unicode glyphs
 """ Disable vi-compatibilty
 set nocompatible
 
-" Steps stolen from
-" http://blog.codefront.net/2013/10/27/installing-powerline-on-os-x-homebrew/
-" for OSX
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
-
 set laststatus=2   " Always show the statusline
 
-"let g:Powerline_symbols = 'unicode' " Define dividers and shii, look at help: Powerline_symbols
-"
-let g:Powerline_theme = 'default' " Powerline theme
+let g:Powerline_symbols = 'unicode' " Define dividers and shii, look at help: Powerline_symbols
+
+let g:airline#extensions#tabline#enabled = 1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -133,11 +122,8 @@ let g:Powerline_theme = 'default' " Powerline theme
 " NOTE: Setting this after all the plugins and shii have loaded, because Monokai
 " exists in one of added colorscheme plugins
 
-" Disabling colorschemes temporarily because they're annoying me.
-" Switching to Solarized for a bit
-" Default
 set background=dark
-colorscheme apprentice
+colorscheme solarized8_flat
 
 " Disable background highlighting by colorschemes in transparent/custom
 " background term-emulator
@@ -145,24 +131,6 @@ highlight Normal ctermbg=NONE
 
 " This is a lot faster than checking filetype for some reason
 "" autocmd BufNewFile,BufRead *.py colorscheme Monokai 
-
-"" " Python
-"" " See -- http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
-"" autocmd FileType python colorscheme default
-
-"" " Markdown
-"" autocmd BufNewFile,BufRead *.mkd colorscheme 256-jungle
-"" " Plain Text
-"" autocmd BufNewFile,BufRead *.txt colorscheme  256-jungle
-"" " LaTeX
-"" autocmd BufNewFile,BufRead *.tex colorscheme blacklight
-"" " C++
-"" autocmd BufNewFile,BufRead *.cpp colorscheme zephyr
-"" " C
-"" autocmd BufNewFile,BufRead *.c colorscheme zephyr
-"" " Headers
-"" autocmd BufNewFile,BufRead *.h colorscheme zephyr
-""
 "" autocmd BufNewFile,BufRead * highlight WS ctermbg=yellow guibg=yellow | match WS /\s\+$/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Temp whitespace highlighting
@@ -236,14 +204,13 @@ au VimEnter * hi! link Conceal racketSyntax
 au VimEnter * set conceallevel=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Language Server Config """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" from https://github.com/autozimu/LanguageClient-neovim
+set hidden
 
-" Racket Config """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" vim-slime
-let g:slime_target = "tmux"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set runtimepath+=~/.vim-plugins/LanguageClient-neovim
 
-" Niji (Rainbow Parenthesis) Config """"""""""""""""""""""""""""""""""""""""""""
-"
-let g:niji_matching_filetypes = ['lisp', 'racket', 'clojure']
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ }
+
